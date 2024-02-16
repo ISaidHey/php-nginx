@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+set -e
+
+run() {
+  docker run -it --rm php /bin/bash
+}
+
+run
