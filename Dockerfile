@@ -56,6 +56,7 @@ RUN apt install -y \
 COPY --chmod=755 scripts/install-composer.sh /usr/bin/install-composer
 COPY --chmod=755 scripts/install-nvm.sh /usr/bin/install-nvm
 COPY --chmod=755 scripts/wait-for-it.sh /usr/bin/wait-for-it
+RUN curl -fsSL https://bun.sh/install | bash
 
 RUN install-composer \
     && install-nvm \
