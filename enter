@@ -3,7 +3,7 @@
 set -e
 
 run() {
-  docker run -it --rm php /bin/bash
+  docker run -it --rm isaidhey/php-nginx:latest /bin/bash
 }
 
 run

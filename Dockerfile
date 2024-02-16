@@ -2,9 +2,27 @@ FROM php:8.3-fpm as php-nginx
 
 RUN apt update -y \
     && apt install -y \
+      libicu-dev \
+      libpng-dev \
+      libsqlite3-dev \
+      libzip-dev \
       nginx \
       supervisor \
-      wget
+      ${PHPIZE_DEPS} \
+    && docker-php-ext-configure intl \
+    && docker-php-ext-install \
+       bcmath \
+       calendar \
+       gd \
+       intl \
+       mysqli \
+       opcache \
+       pcntl \
+       pdo_mysql \
+       pdo_sqlite \
+       sockets \
+       zip
+
 
 COPY configs/supervisord.conf /etc/supervisord.conf
 COPY --chmod=744 scripts/entrypoint.sh /usr/local/bin/docker-php-entrypoint
@@ -30,8 +48,14 @@ CMD []
 
 FROM php-nginx as builder
 
+RUN apt install -y \
+        git \
+        wget \
+        zip
+
 COPY --chmod=755 scripts/install-composer.sh /usr/bin/install-composer
 COPY --chmod=755 scripts/install-nvm.sh /usr/bin/install-nvm
+COPY --chmod=755 scripts/wait-for-it.sh /usr/bin/wait-for-it
 
 RUN install-composer \
     && install-nvm \
