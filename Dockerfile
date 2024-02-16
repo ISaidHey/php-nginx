@@ -28,7 +28,7 @@ ENV PATH=$PATH:/code/vendor/bin \
 
 CMD []
 
-FROM php as builder
+FROM php-nginx as builder
 
 COPY --chmod=755 scripts/install-composer.sh /usr/bin/install-composer
 COPY --chmod=755 scripts/install-nvm.sh /usr/bin/install-nvm
