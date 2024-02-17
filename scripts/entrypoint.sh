@@ -8,22 +8,22 @@ function set_nginx_listen() {
     sed -i "s|{{LISTEN}}|443 ssl|g
             s|#ssl_certificate|ssl_certificate|g
             s|#ssl_certificate_key|ssl_certificate_key|g
-            " /etc/nginx/http.d/default.conf
+            " /etc/nginx/sites-available/default
   else
     sed -i "s|{{LISTEN}}|80|g
             s|#ssl_certificate.*$||g
             s|#ssl_certificate_key.*$||g
-            " /etc/nginx/http.d/default.conf
+            " /etc/nginx/sites-available/default
   fi
 }
 
 function set_nginx_php_server() {
-  sed -i "s|{{PHP_SERVER}}|/index.php?\$query_string|g" /etc/nginx/http.d/default.conf
+  sed -i "s|{{PHP_SERVER}}|/index.php?\$query_string|g" /etc/nginx/sites-available/default
 }
 
 function set_nginx_root() {
   HTTP_ROOT="${HTTP_ROOT:-/code/public}"
-  sed -i "s|{{HTTP_ROOT}}|${HTTP_ROOT}|g" /etc/nginx/http.d/default.conf
+  sed -i "s|{{HTTP_ROOT}}|${HTTP_ROOT}|g" /etc/nginx/sites-available/default
 }
 
 set_nginx_root

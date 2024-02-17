@@ -29,9 +29,11 @@ COPY --chmod=744 scripts/entrypoint.sh /usr/local/bin/docker-php-entrypoint
 
 RUN rm /usr/local/etc/php-fpm.conf.default \
       /usr/local/etc/php-fpm.d/www.conf.default \
-      /usr/local/etc/php-fpm.d/zz-docker.conf
+      /usr/local/etc/php-fpm.d/zz-docker.conf \
+      /usr/local/etc/php/php.ini-development \
+      /usr/local/etc/php/php.ini-production
 
-COPY configs/default.conf /etc/nginx/http.d/default.conf
+COPY configs/default.conf /etc/nginx/sites-available/default
 COPY configs/php.ini-development /usr/local/etc/php/php.ini
 COPY configs/php.ini-production /usr/local/etc/php/php.ini-production
 COPY configs/php-fpm.conf /usr/local/etc/php-fpm.conf
